@@ -1,0 +1,39 @@
+{
+  "kind": "collectionType",
+  "collectionName": "branches",
+  "info": {
+    "singularName": "branch",
+    "pluralName": "branches",
+    "displayName": "branch",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "semesters": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::semester.semester"
+    },
+    "code": {
+      "type": "string"
+    },
+    "admission_panels": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::admission-panel.admission-panel",
+      "mappedBy": "branch"
+    },
+    "students": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::student.student",
+      "mappedBy": "branch"
+    }
+  }
+}

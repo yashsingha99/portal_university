@@ -1,0 +1,43 @@
+{
+  "kind": "collectionType",
+  "collectionName": "admission_panels",
+  "info": {
+    "singularName": "admission-panel",
+    "pluralName": "admission-panels",
+    "displayName": "Admission Panel",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "username": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "phoneNo": {
+      "type": "string"
+    },
+    "highest_qual_marks": {
+      "type": "string"
+    },
+    "course": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::course.course",
+      "inversedBy": "admission_panels"
+    },
+    "branch": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::branch.branch",
+      "inversedBy": "admission_panels"
+    },
+    "FullName": {
+      "type": "string"
+    }
+  }
+}
