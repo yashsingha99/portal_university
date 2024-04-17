@@ -1,0 +1,11 @@
+.student{
+    overflow: scroll;
+    scrollbar-width: none;
+    height: 100vh;
+}
+.students::-webkit-scrollbar {
+    display: none;
+  }
+  .students::-webkit-scrollbar {
+    display: none;
+  }

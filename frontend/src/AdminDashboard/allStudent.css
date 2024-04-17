@@ -1,0 +1,12 @@
+
+.allStudents{
+    overflow: scroll;
+    scrollbar-width: none;
+    height: 720px;
+}
+.allStudents::-webkit-scrollbar {
+    display: none;
+  }
+  .allStudents::-webkit-scrollbar {
+    display: none;
+  }

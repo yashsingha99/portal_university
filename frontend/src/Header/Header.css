@@ -1,0 +1,11 @@
+.navItems{
+    overflow: scroll;
+    scrollbar-width: none;
+    height: 720px;
+}
+.navItems::-webkit-scrollbar {
+    display: none;
+  }
+  .navItems::-webkit-scrollbar {
+    display: none;
+  }
