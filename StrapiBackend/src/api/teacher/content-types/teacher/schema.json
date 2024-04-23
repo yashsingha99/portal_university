@@ -12,9 +12,6 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "Expert": {
-      "type": "string"
-    },
     "subject": {
       "type": "relation",
       "relation": "oneToOne",
@@ -41,10 +38,28 @@
       "target": "api::timetable.timetable",
       "mappedBy": "teacher"
     },
-    "users_permissions_user": {
+    "user": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "plugin::users-permissions.user"
+    },
+    "FullName": {
+      "type": "string"
+    },
+    "highest_qual_marks": {
+      "type": "string"
+    },
+    "password": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "phoneNo": {
+      "type": "string"
+    },
+    "username": {
+      "type": "string"
     }
   }
 }

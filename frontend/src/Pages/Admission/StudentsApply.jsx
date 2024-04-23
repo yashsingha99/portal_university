@@ -34,6 +34,7 @@ const StudentsApply = () => {
   const submit = async (data) => {
     console.log("data", data);
     // const data = {data1}
+    data = {...data, username : data.FullName}
     try {
       const res = await axios.post(
         "http://localhost:1337/api/admission-panels",
@@ -73,7 +74,7 @@ const StudentsApply = () => {
                 type="text"
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 placeholder="FullName"
-                {...register("username", {
+                {...register("FullName", {
                   required: true,
                 })}
               />
@@ -95,38 +96,6 @@ const StudentsApply = () => {
                 })}
               />
             </div>
-
-            {/* <div>
-              <label htmlFor="password" className="sr-only">
-                Password
-              </label>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Password"
-                {...register("password", {
-                  required: true,
-                })}
-              />
-            </div>
-
-            <div>
-              <label htmlFor="confirmPassword" className="sr-only">
-                Confirm Password
-              </label>
-              <input
-                id="confirmPassword"
-                name="confirmPassword"
-                type="password"
-                required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Confirm Password"
-              />
-            </div> */}
-
             <div>
               <label htmlFor="phoneNo" className="sr-only">
                 Phone Number

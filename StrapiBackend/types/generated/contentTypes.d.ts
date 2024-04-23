@@ -826,6 +826,12 @@ export interface ApiAdmissionPanelAdmissionPanel extends Schema.CollectionType {
       'api::branch.branch'
     >;
     FullName: Attribute.String;
+    isFaculty: Attribute.Boolean & Attribute.DefaultTo<false>;
+    subjects: Attribute.Relation<
+      'api::admission-panel.admission-panel',
+      'oneToMany',
+      'api::subject.subject'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1150,7 +1156,6 @@ export interface ApiTeacherTeacher extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    Expert: Attribute.String;
     subject: Attribute.Relation<
       'api::teacher.teacher',
       'oneToOne',
@@ -1176,11 +1181,17 @@ export interface ApiTeacherTeacher extends Schema.CollectionType {
       'oneToMany',
       'api::timetable.timetable'
     >;
-    users_permissions_user: Attribute.Relation<
+    user: Attribute.Relation<
       'api::teacher.teacher',
       'oneToOne',
       'plugin::users-permissions.user'
     >;
+    FullName: Attribute.String;
+    highest_qual_marks: Attribute.String;
+    password: Attribute.String;
+    email: Attribute.String;
+    phoneNo: Attribute.String;
+    username: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

@@ -3,48 +3,34 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 
 const FacultyApply = () => {
-  let { register, handleSubmit } = useForm();
-  const [allCourses, setAllCourses] = useState([]);
-  // const [Courses, setCourses] = useState();
-  const [allBranches, setAllBranches] = useState([]);
-  // let allBranches;
+  let { register, handleSubmit, reset } = useForm();
+  const [subjects, setSubjects] = useState([]);
+
   useEffect(() => {
     const fetch = async () => {
-      const courses = await axios.get(
-        "http://localhost:1337/api/courses?populate=*"
+      const res = await axios.get(
+        "http://localhost:1337/api/subjects?populate=*"
       );
-      const branches = await axios.get(
-        "http://localhost:1337/api/branches?populate=*"
-      );
-      setAllBranches(branches.data.data)
-      console.log("branches", branches.data.data);
-      setAllCourses(courses.data.data);
+      setSubjects(res.data.data)
+      console.log("subject", res.data.data);
     };
     fetch();
   }, []);
-  // const handleCourseChange = (e) => {
-  //   // setCourses(e.target.value)
-  //   const courseName = e.target.value;
-  //   const selectedCourseObj = allCourses.find(
-  //     (course) => course.attributes.courseName === courseName
-  //   );
-  //   console.log("allBranches", selectedCourseObj);
-  // };
-  
+
   const submit = async (data) => {
+    data = { ...data, isFaculty: true };
     console.log(data);
-    // const data = {data1}
     try {
       const res = await axios.post(
         "http://localhost:1337/api/admission-panels",
         { data }
       );
       alert("register succesfully");
-      register = ""
+      reset();
     } catch (error) {
       console.log(error);
       alert("error");
-      register = ""
+      reset();
     }
   };
 
@@ -52,7 +38,7 @@ const FacultyApply = () => {
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div>
-        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
             Faculty
           </h2>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
@@ -64,7 +50,7 @@ const FacultyApply = () => {
             <div>
               <label htmlFor="FullName" className="sr-only">
                 Full Name
-              </label>
+              </label>  
               <input
                 id="FullName"
                 name="username"
@@ -93,37 +79,6 @@ const FacultyApply = () => {
                 })}
               />
             </div>
-
-            {/* <div>
-              <label htmlFor="password" className="sr-only">
-                Password
-              </label>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Password"
-                {...register("password", {
-                  required: true,
-                })}
-              />
-            </div>
-
-            <div>
-              <label htmlFor="confirmPassword" className="sr-only">
-                Confirm Password
-              </label>
-              <input
-                id="confirmPassword"
-                name="confirmPassword"
-                type="password"
-                required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Confirm Password"
-              />
-            </div> */}
 
             <div>
               <label htmlFor="phoneNo" className="sr-only">
@@ -158,7 +113,32 @@ const FacultyApply = () => {
                   required: true,
                 })}
               />
-            </div>            
+            </div>
+
+            <div>
+              <label htmlFor="Course" className="sr-only">
+                Subject 
+              </label>
+              <select
+                id="subject"
+                name="subject"
+                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                {...register("subjects", {
+                  required: true,
+                })}
+              >
+                <option value="">Select Subject</option>
+                {subjects &&
+                  subjects.map((subject) => {
+                    return (
+                      <option key={subject.id} value={subject.id}>
+                        {subject.attributes.subjectName}
+                      </option>
+                    );
+                  })}
+              </select>
+            </div>
+
           </div>
           <div>
             <button

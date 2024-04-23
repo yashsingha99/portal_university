@@ -38,6 +38,15 @@
     },
     "FullName": {
       "type": "string"
+    },
+    "isFaculty": {
+      "type": "boolean",
+      "default": false
+    },
+    "subjects": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::subject.subject"
     }
   }
 }

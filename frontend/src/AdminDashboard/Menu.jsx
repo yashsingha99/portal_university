@@ -12,6 +12,10 @@ function Menu() {
       path: "/adminDashboard/studentPanel",
     },
     {
+      name: "Faculty Panel",
+      path: "/adminDashboard/facultyPenal",
+    },
+    {
       name: "AllStudents",
       path: "/adminDashboard/allStudents",
     },
