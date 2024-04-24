@@ -1,41 +1,43 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import Toaster from "../../Toaster/Toaster";
 
 const FacultyApply = () => {
   let { register, handleSubmit, reset } = useForm();
   const [subjects, setSubjects] = useState([]);
+  const [msg, setMsg] = useState("");
+  const [error, setError] = useState("")
 
   useEffect(() => {
     const fetch = async () => {
       const res = await axios.get(
         "http://localhost:1337/api/subjects?populate=*"
       );
-      setSubjects(res.data.data)
-      console.log("subject", res.data.data);
+      setSubjects(res.data.data);
     };
     fetch();
   }, []);
 
   const submit = async (data) => {
     data = { ...data, isFaculty: true };
-    console.log(data);
     try {
       const res = await axios.post(
         "http://localhost:1337/api/admission-panels",
         { data }
       );
-      alert("register succesfully");
+      setMsg("register succesfully");
       reset();
     } catch (error) {
-      console.log(error);
-      alert("error");
+      setError(error.response.data.error.message);
       reset();
     }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+      {error && <Toaster msg = {error} beauty = {"bg-red-400"}/>     } 
+     {msg && <Toaster msg = {msg} beauty = {"bg-green-400"}/>     } 
       <div className="max-w-md w-full space-y-8">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
@@ -50,7 +52,7 @@ const FacultyApply = () => {
             <div>
               <label htmlFor="FullName" className="sr-only">
                 Full Name
-              </label>  
+              </label>
               <input
                 id="FullName"
                 name="username"
@@ -117,7 +119,7 @@ const FacultyApply = () => {
 
             <div>
               <label htmlFor="Course" className="sr-only">
-                Subject 
+                Subject
               </label>
               <select
                 id="subject"
@@ -138,7 +140,6 @@ const FacultyApply = () => {
                   })}
               </select>
             </div>
-
           </div>
           <div>
             <button

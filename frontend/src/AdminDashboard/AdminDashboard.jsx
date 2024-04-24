@@ -7,7 +7,6 @@ function AdminDashboard() {
     const location = useLocation().pathname.split('/')
     const userData = Cookies.get('userData')
    
-    // console.log(JSON.parse(userData));
     return (
       <>
         <Header />

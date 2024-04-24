@@ -1,12 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { Link, useNavigate } from "react-router-dom";
+import Toaster from "../../Toaster/Toaster";
+
 const StudentLogin = () => {
   const navigate = useNavigate();
   const { register, handleSubmit, reset } = useForm();
+  const [msg, setMsg] = useState("");
+  const [error, setError] = useState("")
+
   const submit = async (data) => {
+    setError("")
+    setMsg("")
     try {
       const user = await axios.post(
         "http://localhost:1337/api/auth/local",
@@ -17,22 +24,24 @@ const StudentLogin = () => {
         user.data.user.isAdmin !== true
       ) {
         console.log(user);
-        // dispatch(loginUser(user));
         Cookies.set("userData", JSON.stringify(user), { expires: 1 });
+        setMsg("successfully login");
         navigate("/dashboard");
       } else {
-        alert("you are not student");
+        setError("you are not student");
         reset();
         navigate("/studentLogin");
       }
     } catch (error) {
-      // setError(error.message);
-      console.error(error);
+      setError(error.response.data.error.message);
     }
   };
 
   return (
-    <div className="flex m-4 items-center justify-center w-full">
+    <div className="flex relative m-4 items-center justify-center w-full">
+      {error && <Toaster msg = {error} beauty = {true}/>     } 
+     {msg && <Toaster msg = {msg} beauty = {false}/> } 
+
       <div
         className={`mx-auto w-full max-w-lg bg-gray-100 rounded-xl p-10 border border-black/10`}
       >

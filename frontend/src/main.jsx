@@ -26,6 +26,8 @@ import AllBranches from "./AdminDashboard/AllBranches.jsx";
 import Students from "./AdminDashboard/Students.jsx";
 import OneStudents from "./AdminDashboard/OneStudents.jsx";
 import FacultyPenal from "./AdminDashboard/FacultyPenal.jsx";
+import AllFaculties from "./AdminDashboard/AllFaculties.jsx";
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     // <Routes>
@@ -46,6 +48,7 @@ const router = createBrowserRouter(
          <Route  path="/adminDashboard/studentPanel" element={ <StudentPanel />}/>
          <Route  path="/adminDashboard/facultyPenal" element={ <FacultyPenal />}/>
          <Route  path="/adminDashboard/allStudents" element={ <AllStudents />}/>
+         <Route  path="/adminDashboard/allFaculty" element={ <AllFaculties />}/>
          <Route  path="/adminDashboard/allStudents/:branch" element={ <AllBranches />}/>
          <Route  path="/adminDashboard/allStudents/:branch/:student" element={ <Students />}/>
          <Route  path="/adminDashboard/allStudents/:branch/:student/:OneStudents" element={ <OneStudents />}/>

@@ -16,12 +16,12 @@ function Menu() {
       path: "/adminDashboard/facultyPenal",
     },
     {
-      name: "AllStudents",
+      name: "All Students",
       path: "/adminDashboard/allStudents",
     },
     {
-      name: "Main Account",
-      path: "#",
+      name: "All Faculty",
+      path: "/adminDashboard/allFaculty",
     },
     {
       name: "Policies",

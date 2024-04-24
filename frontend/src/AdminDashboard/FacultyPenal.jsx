@@ -15,17 +15,6 @@ import img1 from "./image/img1.jpg";
 function FacultyPenal() {
   const [faculty, setfaculty] = useState([]);
   const location = useLocation();
-  useEffect(() => {
-    const fetch = async () => {
-      const res = await axios.get(
-        "http://localhost:1337/api/admission-panels?populate=*"
-      );
-      setfaculty(res.data.data);
-      console.log(res.data.data);
-    };
-    fetch();
-  }, []);
-
   const rejectUser = async (id) => {
     const deletedUser = await axios.delete(
       `http://localhost:1337/api/admission-panels/${id}`
@@ -45,22 +34,23 @@ function FacultyPenal() {
         password: hash.substring(0, Math.floor(Math.random() * 5) + 6),
         phoneNo: faculte.attributes.phoneNo,
         highest_qual_marks: faculte.attributes.highest_qual_marks,
-        isFaculty : true,
-        subject : faculte.attributes.subjects.data[0].id
+        isFaculty: true,
+        subject: faculte.attributes.subjects.data[0].id,
       };
-      console.log("facultyData", facultyData);
 
       const registerResponse = await axios.post(
         `http://localhost:1337/api/auth/local/register`,
         facultyData
       );
-      console.log("registerResponse", registerResponse);
-      const createStudentResponse = await axios.post(
+      const createFaculty = await axios.post(
         `http://localhost:1337/api/teachers`,
         { data: { ...facultyData, user: registerResponse.data.user.id } }
       );
 
-      console.log("createStudentResponse", createStudentResponse);
+      const updateSub = await axios.put(
+        `http://localhost:1337/api/subjects/${faculte.attributes.subjects.data[0].id}`,
+        { data: { teachers: createFaculty.data.data.id } }
+      );
       const deletePanelResponse = await axios.delete(
         `http://localhost:1337/api/admission-panels/${id}`
       );
@@ -71,6 +61,15 @@ function FacultyPenal() {
       );
     }
   };
+  useEffect(() => {
+    const fetch = async () => {
+      const res = await axios.get(
+        "http://localhost:1337/api/admission-panels?populate=*"
+      );
+      setfaculty(res.data.data);
+    };
+    fetch();
+  }, []);
 
   if (faculty.length == 0)
     return (

@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-
+import Toaster from "../../Toaster/Toaster";
 const StudentsApply = () => {
   let { register, handleSubmit, reset } = useForm();
   const [allCourses, setAllCourses] = useState([]);
-  // const [Courses, setCourses] = useState();
   const [allBranches, setAllBranches] = useState([]);
-  // let allBranches;
+  const [msg, setMsg] = useState("")
+  const [error, setError] = useState("")
+
   useEffect(() => {
     const fetch = async () => {
       const courses = await axios.get(
@@ -17,40 +18,30 @@ const StudentsApply = () => {
         "http://localhost:1337/api/branches?populate=*"
       );
       setAllBranches(branches.data.data);
-      console.log("branches", branches.data.data);
       setAllCourses(courses.data.data);
     };
     fetch();
   }, []);
-  // const handleCourseChange = (e) => {
-  //   // setCourses(e.target.value)
-  //   const courseName = e.target.value;
-  //   const selectedCourseObj = allCourses.find(
-  //     (course) => course.attributes.courseName === courseName
-  //   );
-  //   console.log("allBranches", selectedCourseObj);
-  // };
 
   const submit = async (data) => {
-    console.log("data", data);
-    // const data = {data1}
     data = {...data, username : data.FullName}
     try {
       const res = await axios.post(
         "http://localhost:1337/api/admission-panels",
         { data }
       );
-      alert("register succesfully");
+      setMsg("register succesfully");
       reset();
     } catch (error) {
-      console.log(error);
-      alert("error");
+      setError(error.response.data.error.message);
       reset();
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="relative min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+     {error && <Toaster msg = {error} beauty = {false}/>     } 
+     {msg && <Toaster msg = {msg} beauty = {false}/>     } 
       <div className="max-w-md w-full space-y-8">
 
         <div>
