@@ -40,7 +40,7 @@ const StudentsApply = () => {
 
   return (
     <div className="relative min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-     {error && <Toaster msg = {error} beauty = {false}/>     } 
+     {error && <Toaster  msg = {error} beauty = {false}/>     } 
      {msg && <Toaster msg = {msg} beauty = {false}/>     } 
       <div className="max-w-md w-full space-y-8">
 
