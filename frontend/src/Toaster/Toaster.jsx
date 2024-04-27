@@ -6,7 +6,7 @@ import Toast from 'react-bootstrap/Toast';
 import CloseIcon from '@mui/icons-material/Close';
 import ErrorIcon from '@mui/icons-material/Error';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-function Toaster({msg}, {beauty}) {
+function Toaster({msg}, {beauty}){
     const[showA, setShowA] = useState(true)
     const toggleShowA = () => setShowA(!showA);
 
